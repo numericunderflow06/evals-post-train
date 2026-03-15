@@ -1,0 +1,11 @@
+# Self-Distillation Post-Training: Hold-out Metrics
+mmlu_flan_cot_zeroshot/exact_match,ordered-extract
+global_mmlu_gen_0shot/exact_match
+truthfulqa_mc2/acc
+agieval/acc
+hellaswag/acc_norm
+arc_challenge_chat/exact_match
+blend_sample/acc_norm
+cultural_bench/acc_norm
+harmbench/score
+toxigen/acc

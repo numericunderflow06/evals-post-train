@@ -1,0 +1,24 @@
+# Self-Distillation Post-Training: Complete Metrics
+# Target
+gsm8k_cot/exact_match
+minerva_math/exact_match
+hendrycks_math/exact_match
+humaneval_instruct/pass@10
+mbpp_instruct/pass_at_1
+bbh/exact_match
+drop/f1
+acp_bench/exact_match
+gpqa_main_cot_zeroshot/acc
+ifeval/prompt_level_loose_acc
+multi-if/prompt_level_loose_acc
+# Hold-out
+mmlu_flan_cot_zeroshot/exact_match,ordered-extract
+global_mmlu_gen_0shot/exact_match
+truthfulqa_mc2/acc
+agieval/acc
+hellaswag/acc_norm
+arc_challenge_chat/exact_match
+blend_sample/acc_norm
+cultural_bench/acc_norm
+harmbench/score
+toxigen/acc

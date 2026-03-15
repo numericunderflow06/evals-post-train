@@ -25,6 +25,12 @@
 #   olmo-complete    - All suites combined (default, excludes long-context)
 
 #
+# Self-Distillation Post-Training:
+#   sdpt-target      - Target benchmarks (math, code, reasoning, instruction following)
+#   sdpt-holdout     - Hold-out benchmarks (knowledge, commonsense, cultural, safety)
+#   sdpt-complete    - All benchmarks (target + hold-out)
+
+#
 # Model selection (pick one):
 #   --model <path>            - Single HF model or local checkpoint path
 #   --script <path>           - Run a model-list script (e.g. hf_eval_multiple_other_models.sh)
@@ -111,7 +117,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # --- Validate mode ---
-VALID_MODES=("default" "multi-lingual" "apertus-previous" "pretrain" "olmo-easy" "olmo-main" "olmo-heldout" "olmo-safety" "olmo-longcontext" "olmo-complete" "eval-debug" "non-gated" "single")
+VALID_MODES=("default" "multi-lingual" "apertus-previous" "pretrain" "olmo-easy" "olmo-main" "olmo-heldout" "olmo-safety" "olmo-longcontext" "olmo-complete" "sdpt-target" "sdpt-holdout" "sdpt-complete" "eval-debug" "non-gated" "single")
 if [[ ! " ${VALID_MODES[*]} " =~ " ${EVAL_MODE} " ]]; then
     echo "Error: Invalid mode '$EVAL_MODE'"
     echo "Valid modes: ${VALID_MODES[*]}"
@@ -203,6 +209,21 @@ case "$EVAL_MODE" in
         export TASKS=./configs/olmo/olmo3_complete.txt
         export TABLE_METRICS=./configs/olmo/olmo3_complete_main_table.txt
         export WANDB_PROJECT="${WANDB_PROJECT}-olmo-complete"
+        ;;
+    "sdpt-target")
+        export TASKS=./configs/sdpt/tasks_target.txt
+        export TABLE_METRICS=./configs/sdpt/tasks_target_main_table.txt
+        export WANDB_PROJECT="self-distillation-post-training-target"
+        ;;
+    "sdpt-holdout")
+        export TASKS=./configs/sdpt/tasks_holdout.txt
+        export TABLE_METRICS=./configs/sdpt/tasks_holdout_main_table.txt
+        export WANDB_PROJECT="self-distillation-post-training-holdout"
+        ;;
+    "sdpt-complete")
+        export TASKS=./configs/sdpt/tasks_complete.txt
+        export TABLE_METRICS=./configs/sdpt/tasks_complete_main_table.txt
+        export WANDB_PROJECT="self-distillation-post-training"
         ;;
     "eval-debug")
         export TASKS=./configs/apertus/eval_debug.txt

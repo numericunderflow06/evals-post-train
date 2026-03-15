@@ -1,0 +1,37 @@
+# Self-Distillation Post-Training: Complete Benchmark Suite
+# Union of target + hold-out benchmarks
+#
+# === Target Benchmarks ===
+#
+# Math (CoT)
+gsm8k_cot
+minerva_math
+hendrycks_math
+# Code
+humaneval_instruct
+mbpp_instruct
+# Reasoning
+bbh
+drop
+acp_bench
+gpqa_main_cot_zeroshot
+# Instruction Following
+ifeval
+multi-if
+#
+# === Hold-out Benchmarks ===
+#
+# Knowledge
+mmlu_flan_cot_zeroshot
+global_mmlu_gen_0shot
+truthfulqa_mc2
+agieval
+# Commonsense Reasoning
+hellaswag
+arc_challenge_chat
+# Cultural Knowledge
+blend_sample
+cultural_bench
+# Safety
+harmbench
+toxigen

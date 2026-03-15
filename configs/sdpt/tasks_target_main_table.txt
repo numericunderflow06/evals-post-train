@@ -1,0 +1,12 @@
+# Self-Distillation Post-Training: Target Metrics
+gsm8k_cot/exact_match
+minerva_math/exact_match
+hendrycks_math/exact_match
+humaneval_instruct/pass@10
+mbpp_instruct/pass_at_1
+bbh/exact_match
+drop/f1
+acp_bench/exact_match
+gpqa_main_cot_zeroshot/acc
+ifeval/prompt_level_loose_acc
+multi-if/prompt_level_loose_acc

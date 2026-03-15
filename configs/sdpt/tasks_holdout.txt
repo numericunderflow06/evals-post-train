@@ -1,0 +1,17 @@
+# Self-Distillation Post-Training: Hold-out Benchmarks
+# Capabilities that must NOT degrade (measure forgetting)
+#
+# Knowledge
+mmlu_flan_cot_zeroshot
+global_mmlu_gen_0shot
+truthfulqa_mc2
+agieval
+# Commonsense Reasoning
+hellaswag
+arc_challenge_chat
+# Cultural Knowledge
+blend_sample
+cultural_bench
+# Safety
+harmbench
+toxigen

@@ -38,6 +38,9 @@ bash scripts/launch_evaluations.sh <mode> --model <path> [options]
 | OLMo-2-0325-32B | `allenai/OLMo-2-0325-32B` | base |
 | OLMo-2-0325-32B-Instruct | `allenai/OLMo-2-0325-32B-Instruct` | instruct |
 | OLMo-3-7B-Instruct | `allenai/Olmo-3-7B-Instruct` | instruct |
+| OLMo-3-7B-Instruct-DPO | `allenai/Olmo-3-7B-Instruct-DPO` | instruct+dpo |
+| OLMo-3-7B-Think-DPO | `allenai/Olmo-3-7B-Think-DPO` | think+dpo |
+| OLMo-3.1-32B-Instruct-DPO | `allenai/Olmo-3.1-32B-Instruct-DPO` | instruct+dpo |
 
 ## Qwen
 

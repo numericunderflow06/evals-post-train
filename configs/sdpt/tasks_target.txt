@@ -1,0 +1,18 @@
+# Self-Distillation Post-Training: Target Benchmarks
+# Capabilities that self-distillation should improve
+#
+# Math (CoT)
+gsm8k_cot
+minerva_math
+hendrycks_math
+# Code
+humaneval_instruct
+mbpp_instruct
+# Reasoning
+bbh
+drop
+acp_bench
+gpqa_main_cot_zeroshot
+# Instruction Following
+ifeval
+multi-if
