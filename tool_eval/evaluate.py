@@ -1,23 +1,36 @@
 """CLI entry point for tool-use evaluation.
 
 Usage:
+    # OpenAI API (native function calling)
     python -m tool_eval.evaluate \
         --benchmark tau2-bench \
         --backend openai \
         --model gpt-4o \
         --limit 10
 
+    # Anthropic API (native tool use)
     python -m tool_eval.evaluate \
         --benchmark swe-bench \
         --backend anthropic \
         --model claude-sonnet-4-20250514 \
         --limit 5
 
+    # vLLM with native function calling (if model supports it)
     python -m tool_eval.evaluate \
         --benchmark livecodebench \
         --backend vllm \
         --model Qwen/Qwen2.5-72B-Instruct \
         --base-url http://localhost:8000/v1
+
+    # Text-based tool calling for open models (OLMo 3, Llama, etc.)
+    # Tools are injected into the prompt; tool calls parsed from text output.
+    # Works with ANY model served via OpenAI-compatible endpoint.
+    python -m tool_eval.evaluate \
+        --benchmark livecodebench \
+        --backend text \
+        --model allenai/OLMo-3-7B-Instruct \
+        --base-url http://localhost:8000/v1 \
+        --limit 10
 """
 
 import argparse
@@ -40,7 +53,10 @@ def main():
     parser.add_argument("--benchmark", required=True,
                         help="Benchmark name: tau2-bench, swe-bench, livecodebench, terminalbench, browsecomp, mcp-atlas")
     parser.add_argument("--backend", required=True,
-                        help="Model backend: openai, anthropic, vllm")
+                        help="Model backend: openai, anthropic, vllm, text. "
+                             "Use 'text' for open models without native function calling "
+                             "(OLMo 3, Llama, etc.) — tools are injected into the prompt "
+                             "and tool calls are parsed from text output.")
     parser.add_argument("--model", required=True,
                         help="Model name/path")
     parser.add_argument("--api-key", default=None,
