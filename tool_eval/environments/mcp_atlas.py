@@ -42,7 +42,7 @@ class MCPAtlasEnvironment(Environment):
         # Try loading the dataset
         try:
             from datasets import load_dataset
-            ds = load_dataset("ScaleAI/MCP-Atlas", split="test")
+            ds = load_dataset("ScaleAI/MCP-Atlas", split="train")
             self._tasks = {str(i): row for i, row in enumerate(ds)}
         except Exception as e:
             logger.warning(f"MCP-Atlas dataset not loaded: {e}")
@@ -72,7 +72,7 @@ class MCPAtlasEnvironment(Environment):
         self._answer = None
         self._tool_calls_log = []
 
-        prompt = self._current_task.get("prompt", self._current_task.get("task", ""))
+        prompt = self._current_task.get("PROMPT", self._current_task.get("prompt", ""))
         return (
             f"Complete the following task using the available MCP tools.\n\n"
             f"Task: {prompt}\n\n"
@@ -172,7 +172,19 @@ class MCPAtlasEnvironment(Environment):
             )
 
         # MCP-Atlas uses claims-based scoring — each task has verifiable claims
-        claims = self._current_task.get("claims", [])
+        claims_raw = self._current_task.get("GTFA_CLAIMS", self._current_task.get("claims", []))
+        # GTFA_CLAIMS may be a JSON/Python-literal string rather than a list
+        if isinstance(claims_raw, str):
+            try:
+                import ast
+                claims = ast.literal_eval(claims_raw)
+            except (ValueError, SyntaxError):
+                try:
+                    claims = json.loads(claims_raw)
+                except (json.JSONDecodeError, TypeError):
+                    claims = [claims_raw] if claims_raw.strip() else []
+        else:
+            claims = claims_raw if claims_raw else []
         if claims:
             satisfied = 0
             for claim in claims:

@@ -3,7 +3,12 @@
 Evaluates agents on hard web browsing tasks that require multi-step
 information retrieval across multiple web pages.
 
-Dataset: openai/browsecomp (on HuggingFace)
+Dataset: smolagents/browse_comp (on HuggingFace)
+
+Note: The official BrowseComp data is encrypted by OpenAI to prevent
+contamination. The 'problem' and 'answer' fields are ciphertext.
+Local scoring compares encrypted answers and will not produce meaningful
+results. For proper evaluation, submit answers to OpenAI's grading API.
 """
 
 import json
@@ -46,7 +51,7 @@ class BrowseCompEnvironment(Environment):
 
         try:
             from datasets import load_dataset
-            ds = load_dataset("openai/browsecomp", split="test")
+            ds = load_dataset("smolagents/browse_comp", split="test")
             self._tasks = {str(i): row for i, row in enumerate(ds)}
         except Exception as e:
             logger.warning(f"BrowseComp dataset not loaded: {e}")
@@ -65,7 +70,7 @@ class BrowseCompEnvironment(Environment):
         self._search_count = 0
         self._browse_count = 0
 
-        question = self._current_task.get("question", self._current_task.get("input", ""))
+        question = self._current_task.get("problem", self._current_task.get("question", ""))
         return (
             f"Answer the following question. You will need to search the web and "
             f"browse multiple pages to find the answer.\n\n"
@@ -200,7 +205,10 @@ class BrowseCompEnvironment(Environment):
             )
 
         target = self._current_task.get("answer", self._current_task.get("target", ""))
-        # Case-insensitive containment check
+
+        # NOTE: The official BrowseComp dataset has encrypted answers.
+        # Local containment-check scoring will not produce meaningful results.
+        # For proper evaluation, submit answers to OpenAI's grading API.
         match = target.lower().strip() in self._answer.lower().strip() if target else False
 
         return TaskResult(
@@ -212,6 +220,7 @@ class BrowseCompEnvironment(Environment):
             metadata={
                 "searches": self._search_count,
                 "pages_browsed": self._browse_count,
+                "scoring_note": "answers are encrypted; local scoring is approximate",
             },
         )
 
