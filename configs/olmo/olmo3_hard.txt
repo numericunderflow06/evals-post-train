@@ -1,0 +1,20 @@
+# OLMo3 Hard Benchmark Suite
+# Newer, harder benchmarks for frontier model evaluation
+#
+# Math
+aime24
+aime25
+aime26
+hmmt_feb_2024
+hmmt_feb_2025
+hmmt_nov_2025
+imo_answer_bench
+#
+# Knowledge
+supergpqa
+#
+# Factuality
+simpleqa
+#
+# Science (gated dataset - requires HF access to cais/hle)
+# hle

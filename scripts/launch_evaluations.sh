@@ -23,6 +23,7 @@
 #   olmo-safety      - Safety (harmbench, toxigen, wmdp, bbq)
 #   olmo-longcontext - Long-Context (RULER)
 #   olmo-complete    - All suites combined (default, excludes long-context)
+#   olmo-hard        - Hard benchmarks (AIME 24-26, HMMT, IMO, SuperGPQA, SimpleQA, HLE)
 
 #
 # Self-Distillation Post-Training:
@@ -117,7 +118,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # --- Validate mode ---
-VALID_MODES=("default" "multi-lingual" "apertus-previous" "pretrain" "olmo-easy" "olmo-main" "olmo-heldout" "olmo-safety" "olmo-longcontext" "olmo-complete" "sdpt-target" "sdpt-holdout" "sdpt-complete" "eval-debug" "non-gated" "single")
+VALID_MODES=("default" "multi-lingual" "apertus-previous" "pretrain" "olmo-easy" "olmo-main" "olmo-heldout" "olmo-safety" "olmo-longcontext" "olmo-complete" "olmo-hard" "sdpt-target" "sdpt-holdout" "sdpt-complete" "eval-debug" "non-gated" "single")
 if [[ ! " ${VALID_MODES[*]} " =~ " ${EVAL_MODE} " ]]; then
     echo "Error: Invalid mode '$EVAL_MODE'"
     echo "Valid modes: ${VALID_MODES[*]}"
@@ -209,6 +210,11 @@ case "$EVAL_MODE" in
         export TASKS=./configs/olmo/olmo3_complete.txt
         export TABLE_METRICS=./configs/olmo/olmo3_complete_main_table.txt
         export WANDB_PROJECT="${WANDB_PROJECT}-olmo-complete"
+        ;;
+    "olmo-hard")
+        export TASKS=./configs/olmo/olmo3_hard.txt
+        export TABLE_METRICS=./configs/olmo/olmo3_hard_main_table.txt
+        export WANDB_PROJECT="${WANDB_PROJECT}-olmo-hard"
         ;;
     "sdpt-target")
         export TASKS=./configs/sdpt/tasks_target.txt

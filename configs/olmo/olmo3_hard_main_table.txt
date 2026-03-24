@@ -1,0 +1,11 @@
+# OLMo3 Hard Benchmark Suite - Main Table Metrics
+aime24/exact_match
+aime25/exact_match
+aime26/exact_match
+hmmt_feb_2024/exact_match
+hmmt_feb_2025/exact_match
+hmmt_nov_2025/exact_match
+imo_answer_bench/exact_match
+supergpqa/exact_match
+simpleqa/exact_match
+# hle/exact_match
